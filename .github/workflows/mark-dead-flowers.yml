@@ -1,0 +1,15 @@
+name: Mark Dead Flowers
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  call-function:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Supabase function
+        run: |
+          curl -X POST "${{ secrets.SUPABASE_PROJECT_URL }}/functions/v1/mark_dead_flowers" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}"
